@@ -16,8 +16,7 @@ export class Align {
   }
 
   /**
-   * объект относительно которого надо выравнивать
-   * @param item
+   * set anchor for aligning
    */
   anchor(item: ISizeable): this {
     this.anchorItem = item;
@@ -25,10 +24,7 @@ export class Align {
   }
 
   /**
-   * Для выравнивания относительно экрана
-   * создается легкий делегат с нулевыми координатами
-   * @param width
-   * @param height
+   * screen align - dont work with camera moving
    */
   anchorScreen(width: number, height: number): this {
     return this.anchor({
@@ -36,6 +32,9 @@ export class Align {
     });
   }
 
+  /**
+   * screen align - dont work with camera moving
+   */
   anchorSceneScreen(scene: Phaser.Scene): this {
     const { width, height } = scene.cameras.main;
     return this.anchorScreen(width, height);
@@ -119,11 +118,7 @@ export class Align {
   }
 
   /**
-   * @method setPosition - размещает объект с любым Origin
-   * для использования в цепочках с выравниванием по анкору
-   * @param item
-   * @param left
-   * @param top
+   * setPosition - like setLeftTop
    */
   setPosition(item: AlignObject, left: number, top: number): this {
     Align.setLeftTop(item, left, top);
@@ -131,27 +126,18 @@ export class Align {
   }
 
   /**
-   * @method setLeftTop - размещает объект с любым Origin
-   * для использования без создания Align
-   * когда нужно просто разместить объект
-   * @param item
-   * @param left
-   * @param top
+   * setLeftTop - place object with any origin
    */
   static setLeftTop(item: AlignObject, left: number, top: number) {
-    // bounds - реальное положение объекта вне зависимости  от origin
     const iB = item.getBounds();
-    // находим разницу между  границами сейчас и что надо
     const dX = left - iB.left;
     const dY = top - iB.top;
-    // вычисляем перемещение по осям
     const x = item.x + dX;
     const y = item.y + dY;
-    // применяем перемещение
     item.setPosition(x, y);
   }
 
-  // выстроить объекты в ряд с расстоянием dX, друг за другом
+  /** make row align **/
   row(items: AlignObject[], dX: number): this {
     this.anchor(items[0]);
     for (let i = 1; i < items.length; i++) {
@@ -162,7 +148,7 @@ export class Align {
     return this;
   }
 
-  // выстроить объекты в колонку с расстоянием dY, друг за другом
+  /** make column align **/
   column(items: AlignObject[], dY: number): this {
     this.anchor(items[0]);
     for (let i = 1; i < items.length; i++) {
