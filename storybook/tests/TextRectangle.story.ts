@@ -1,6 +1,6 @@
-import { IStory } from "../../../storybook/interfaces";
-import { Align } from "../../layout";
-import { TextRectangleComponent } from "./TextRectangle";
+import { IStory } from "../interfaces";
+import { Align } from "../../src/layout";
+import { TextRectangleComponent } from "../../src/components/TextRectangle/TextRectangle";
 
 export const textRectangleStory: IStory = {
   title: "TextRectangle",
