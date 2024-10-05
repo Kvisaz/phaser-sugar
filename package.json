@@ -1,6 +1,6 @@
 {
   "name": "@kvisaz/phaser-sugar",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Phaser 3 utils and syntax sugar",
   "author": "Kvisaz Games",
   "main": "dist/index.js",
