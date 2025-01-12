@@ -22,7 +22,7 @@ export class PreloadTask extends Phaser.Loader.File {
    * During the load the methods onLoad, onError and onProgress are called, based on the XHR events.
    * You shouldn't normally call this method directly, it's meant to be invoked by the Loader.
    */
-  load() {
+  async load() {
     this.task
       .then(() => {
         console.log("preload async task finished");

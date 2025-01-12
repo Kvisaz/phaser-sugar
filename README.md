@@ -1,10 +1,17 @@
 # phaser-sugar
 Phaser 3.80 tools and utilities
 
-version 1.0.10
+version 1.0.2
 
 # Features
 
+- Preload tasks - just write PreloadTask.load(scene, ()=>Promise) to wait async operations in Phaser Load
+- font loader
+```typescript
+loadFont({
+  scene, fontFamily: "Title", url: `${urlBase}/BalsamiqSans-Bold.ttf`
+});
+```
 - [Align](docs/pages/align.md) - positioning game objects relative to each other with any origin
 - [setLeftTop](docs/pages/align.md) - set left and top of object with any origin
 - [cssColorToInt](src/color/cssColorToInt.ts) - convert css color string To Phaser Int color
