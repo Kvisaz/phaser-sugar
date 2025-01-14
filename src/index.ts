@@ -3,3 +3,4 @@ export * from './color';
 export * from './components';
 export * from './layout';
 export * from './load';
+export * from './objects';
