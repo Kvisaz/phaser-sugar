@@ -4,6 +4,8 @@ export type AlignObject =
   | Phaser.GameObjects.Text
   | Phaser.GameObjects.RenderTexture
   | Phaser.GameObjects.Shape
+  | Phaser.GameObjects.NineSlice
+  | Phaser.GameObjects.Zone
   | Phaser.GameObjects.TileSprite;
 
 /** Align objects relative to the anchor with any origin **/
