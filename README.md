@@ -1,12 +1,13 @@
 # phaser-sugar
 Phaser 3.80 tools and utilities
 
-version 1.0.24
+version 1.0.25
 
 # Features
-
-- Zone added as type to Align
-- NineSlice added as type to Align
+- isContainer, isImage, isSpite, isText - typescript safe type checkers
+- setContainerInteractive (add size before setInteractive)
+- Align objects - any GameObject with x,y, setPosition, getBounds
+- NineSlice, Zone added as type to Align
 - NiceText - add text in nice style with fontSizePx and wordWrap
 - Preload tasks - just write PreloadTask.load(scene, ()=>Promise) to wait async operations in Phaser Load
 - font loader

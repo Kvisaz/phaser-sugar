@@ -1,17 +1,11 @@
-export type AlignObject =
-  | Phaser.GameObjects.Container
-  | Phaser.GameObjects.Image
-  | Phaser.GameObjects.Text
-  | Phaser.GameObjects.RenderTexture
-  | Phaser.GameObjects.Shape
-  | Phaser.GameObjects.NineSlice
-  | Phaser.GameObjects.Zone
-  | Phaser.GameObjects.TileSprite;
+export interface AlignObject extends Phaser.GameObjects.GameObject, ISizeable, IPosition {
+  setPosition(x: number, y: number): this;
+}
 
 /** Align objects relative to the anchor with any origin **/
 export class Align {
   private anchorItem: ISizeable | undefined;
-  private static errorSetAnchorMessage = 'set anchor in Align first';
+  private static errorSetAnchorMessage = "set anchor in Align first";
 
   constructor(anchorItem?: ISizeable) {
     if (anchorItem) this.anchorItem = anchorItem;
@@ -30,7 +24,7 @@ export class Align {
    */
   anchorScreen(width: number, height: number): this {
     return this.anchor({
-      getBounds: () => new Phaser.Geom.Rectangle(0, 0, width, height),
+      getBounds: () => new Phaser.Geom.Rectangle(0, 0, width, height)
     });
   }
 
@@ -45,77 +39,77 @@ export class Align {
   center(item: AlignObject, oX = 0, oY = 0): this {
     return this.applyFormula(item, oX, oY, ({ aB, iB }) => ({
       x: aB.x + (aB.width - iB.width) / 2,
-      y: aB.y + (aB.height - iB.height) / 2,
+      y: aB.y + (aB.height - iB.height) / 2
     }));
   }
 
   centerX(item: AlignObject, oX = 0): this {
     return this.applyFormula(item, oX, 0, ({ aB, iB }) => ({
       x: aB.x + (aB.width - iB.width) / 2,
-      y: iB.y,
+      y: iB.y
     }));
   }
 
   centerY(item: AlignObject, oY = 0): this {
     return this.applyFormula(item, 0, oY, ({ aB, iB }) => ({
       x: iB.x,
-      y: aB.y + (aB.height - iB.height) / 2,
+      y: aB.y + (aB.height - iB.height) / 2
     }));
   }
 
   bottomIn(item: AlignObject, oY = 0): this {
     return this.applyFormula(item, 0, oY, ({ aB, iB }) => ({
       x: iB.x,
-      y: aB.y + (aB.height - iB.height),
+      y: aB.y + (aB.height - iB.height)
     }));
   }
 
   bottomTo(item: AlignObject, oY = 0): this {
     return this.applyFormula(item, 0, oY, ({ aB, iB }) => ({
       x: iB.x,
-      y: aB.y + aB.height,
+      y: aB.y + aB.height
     }));
   }
 
   topIn(item: AlignObject, oY = 0): this {
     return this.applyFormula(item, 0, oY, ({ aB, iB }) => ({
       x: iB.x,
-      y: aB.y,
+      y: aB.y
     }));
   }
 
   topTo(item: AlignObject, oY = 0): this {
     return this.applyFormula(item, 0, oY, ({ aB, iB }) => ({
       x: iB.x,
-      y: aB.y - iB.height,
+      y: aB.y - iB.height
     }));
   }
 
   rightIn(item: AlignObject, oX = 0): this {
     return this.applyFormula(item, oX, 0, ({ aB, iB }) => ({
       x: aB.x + (aB.width - iB.width),
-      y: iB.y,
+      y: iB.y
     }));
   }
 
   rightTo(item: AlignObject, oX = 0): this {
     return this.applyFormula(item, oX, 0, ({ aB, iB }) => ({
       x: aB.x + aB.width,
-      y: iB.y,
+      y: iB.y
     }));
   }
 
   leftIn(item: AlignObject, oX = 0): this {
     return this.applyFormula(item, oX, 0, ({ aB, iB }) => ({
       x: aB.x,
-      y: iB.y,
+      y: iB.y
     }));
   }
 
   leftTo(item: AlignObject, oX = 0): this {
     return this.applyFormula(item, oX, 0, ({ aB, iB }) => ({
       x: aB.x - iB.width,
-      y: iB.y,
+      y: iB.y
     }));
   }
 
@@ -181,7 +175,7 @@ export class Align {
   private getBounds(item: ISizeable, anchor: ISizeable): IBoundsPair {
     return {
       aB: anchor?.getBounds(),
-      iB: item?.getBounds(),
+      iB: item?.getBounds()
     };
   }
 }
