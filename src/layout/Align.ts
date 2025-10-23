@@ -20,6 +20,15 @@ export class Align {
   }
 
   /**
+   * set anchor for area, bounds
+   */
+  anchorArea(area: Phaser.Geom.Rectangle): this {
+    return this.anchor({
+      getBounds: () => area
+    });
+  }
+
+  /**
    * screen align - dont work with camera moving
    */
   anchorScreen(width: number, height: number): this {
