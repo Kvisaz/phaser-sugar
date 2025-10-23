@@ -18,7 +18,7 @@ Any method works with any gameobject origin in Phaser.
 
 Look at [DemoScene.ts](./demo/DemoScene.ts)
 
-![](img/phaser-align-screen.png)
+![phaser-align-screen.png](img/phaser-align-screen.png)
 
 ```typescript
 const kingSprite = this.add.sprite(0, 0, Assets.sprites.king);
