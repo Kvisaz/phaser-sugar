@@ -22,7 +22,7 @@ const textStyle2: TextStyle = {
 };
 
 export const launchSceneAutoRunAndPauseMainStory: IStory = {
-  title: "child scene pause main",
+  title: "child mainScene pause main",
   run: async (scene: Phaser.Scene) => {
     logScenes(scene.game, "before loadGameAssets");
     logScenes(scene.game, "before sceneProxy");
@@ -30,7 +30,7 @@ export const launchSceneAutoRunAndPauseMainStory: IStory = {
     const destroyMain = addMainScene(scene);
 
     const sceneProxy = new ChildSceneProxy({
-      scene,
+      mainScene: scene,
       childKey: "TestSceneProxy1",
       viewPort: {
         left: 0,
@@ -131,7 +131,7 @@ function createChildScene({ scene, sceneProxy }: ISceneProxyCreateArgs) {
 
   scene.add.text(left, top + 100, "Child Scene Text 1", { ...textStyle, fontSize: "32px" });
 
-  scene.add.text(left, top + 200, "Click on me to start and pause\nmain scene", {
+  scene.add.text(left, top + 200, "Click on me to start and pause\nmain mainScene", {
     ...textStyle,
     fontSize: "32px",
   });

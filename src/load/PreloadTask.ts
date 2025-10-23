@@ -1,6 +1,6 @@
 /**
  *  just to run any promise in load phase
- *  PreloadTask.add(scene, any promise)
+ *  PreloadTask.add(mainScene, any promise)
  */
 export class PreloadTask extends Phaser.Loader.File {
   static FILE_TYPE = "asyncTask";
@@ -43,7 +43,7 @@ export class PreloadTask extends Phaser.Loader.File {
   }
 
   /**
-   * use in scene preload only
+   * use in mainScene preload only
    * @param scene
    * @param task
    */

@@ -41,7 +41,7 @@ export const launchSceneStory: IStory = {
 
     logScenes(scene.game, "before sceneProxy");
     const sceneProxy = new ChildSceneProxy({
-      scene,
+      mainScene: scene,
       childKey: "TestScene2",
     });
 

@@ -8,7 +8,7 @@ export interface ISceneProxyCreateArgs {
 export type SceneProxyCreateCallback = (args: ISceneProxyCreateArgs) => void;
 
 interface IProps {
-  scene: Phaser.Scene;
+  mainScene: Phaser.Scene;
   childKey: string;
   viewPort?: IViewPort;
   create?: SceneProxyCreateCallback;
@@ -29,9 +29,9 @@ export class ChildSceneProxy extends Phaser.GameObjects.Rectangle {
   private readonly childScene: Phaser.Scene;
   private isRunning = false;
   constructor(private props: IProps) {
-    super(props.scene, 0, 0, 0, 0, 0);
+    super(props.mainScene, 0, 0, 0, 0, 0);
     this.childScene = new Phaser.Scene({ key: props.childKey });
-    props.scene.scene.add(props.childKey, this.childScene);
+    props.mainScene.scene.add(props.childKey, this.childScene);
 
     const { isAutoRun, create } = props;
     if (isAutoRun) {

@@ -1,9 +1,9 @@
 /**
- * Loads assets in a Phaser scene and returns a Promise that resolves when the loading is complete.
+ * Loads assets in a Phaser mainScene and returns a Promise that resolves when the loading is complete.
  * An optional onProgress callback can be passed to track the progress of the asset loading.
  *
- * @param {Phaser.Scene} scene - The Phaser scene where assets will be loaded.
- * @param {(scene: Phaser.Scene) => void} loader - A function that triggers asset loading within the scene.
+ * @param {Phaser.Scene} scene - The Phaser mainScene where assets will be loaded.
+ * @param {(mainScene: Phaser.Scene) => void} loader - A function that triggers asset loading within the mainScene.
  * @param {(progress: number) => void} [onProgress] - Optional callback function to track loading progress. Receives a number between 0 and 1.
  * @returns {Promise<void>} A promise that resolves when all assets are fully loaded.
  */

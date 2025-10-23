@@ -19,7 +19,7 @@ const textStyle2: TextStyle = {
 };
 
 export const launchSceneAutoRunStory: IStory = {
-  title: "child scene auto run",
+  title: "child mainScene auto run",
   run: async (scene: Phaser.Scene) => {
     logScenes(scene.game, "before loadGameAssets");
     logScenes(scene.game, "before sceneProxy");
@@ -43,7 +43,7 @@ export const launchSceneAutoRunStory: IStory = {
     };
 
     const sceneProxy = new ChildSceneProxy({
-      scene,
+      mainScene: scene,
       childKey: "TestSceneProxy1",
       viewPort: {
         left: 64,

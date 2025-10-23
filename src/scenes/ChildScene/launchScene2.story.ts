@@ -21,13 +21,13 @@ const textStyle2: TextStyle = {
 };
 
 export const launchSceneStory2: IStory = {
-  title: "launch child scene",
+  title: "launch child mainScene",
   run: async (scene: Phaser.Scene) => {
     logScenes(scene.game, "before loadGameAssets");
     logScenes(scene.game, "before sceneProxy");
     const align = new Align();
     const sceneProxy = new ChildSceneProxy({
-      scene,
+      mainScene: scene,
       childKey: "TestSceneProxy1",
       viewPort: {
         left: 64,
@@ -57,7 +57,7 @@ export const launchSceneStory2: IStory = {
     logScenes(scene.game, "after sceneProxy");
 
     const sceneProxy2 = new ChildSceneProxy({
-      scene,
+      mainScene: scene,
       childKey: "TestSceneProxy2",
       viewPort: {
         left: 512,
