@@ -2,7 +2,8 @@
 Phaser 3.80 tools and utilities
 
 - [GitHub](https://github.com/Kvisaz/phaser-sugar)
-- [Demo / Storybook](https://kvisaz.github.io/phaser-sugar/)
+- [Storybook](https://kvisaz.github.io/phaser-sugar/storybook/index.html)
+- [Docs draft web page](https://kvisaz.github.io/phaser-sugar/)
 
 version 1.0.33
 
