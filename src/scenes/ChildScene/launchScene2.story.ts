@@ -1,8 +1,8 @@
-import { Align } from "@kvisaz/phaser-sugar";
-import { IStory } from "../../../../storybook/interfaces";
 import { ChildSceneProxy } from "./ChildSceneProxy";
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 import { SceneUtils } from "../SceneUtils";
+import { IStory } from "../../../storybook/interfaces";
+import { Align } from "../../layout";
 
 const textStyle1: TextStyle = {
   fontSize: "32px",

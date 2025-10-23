@@ -1,9 +1,10 @@
 # phaser-sugar
 Phaser 3.80 tools and utilities
 
-version 1.0.25
+version 1.0.32
 
 # Features
+- ChildSceneProxy - easy add child scene, like popup or ui, to pause main scene
 - isContainer, isImage, isSpite, isText - typescript safe type checkers
 - setContainerInteractive (add size before setInteractive)
 - Align objects - any GameObject with x,y, setPosition, getBounds

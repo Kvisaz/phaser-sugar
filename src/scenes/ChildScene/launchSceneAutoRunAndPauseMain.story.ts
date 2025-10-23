@@ -1,8 +1,9 @@
 import { ChildSceneProxy, ISceneProxyCreateArgs } from "./ChildSceneProxy";
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
-import { IStory } from "../../../../storybook/interfaces";
 import { SceneUtils } from "../SceneUtils";
+import { IStory } from "../../../storybook/interfaces";
+import { cssColorToInt } from "../../color";
 
 const textStyle1: TextStyle = {
   fontSize: "32px",
@@ -32,12 +33,15 @@ export const launchSceneAutoRunAndPauseMainStory: IStory = {
       scene,
       childKey: "TestSceneProxy1",
       viewPort: {
-        left: 364,
+        left: 0,
         right: 128,
         top: 64,
         bottom: 0,
       },
       isAutoRun: true,
+      camera: {
+        scale: 0.5
+      },
       create: createChildScene,
     });
 
@@ -58,7 +62,8 @@ function logScenes(game: Phaser.Game, ...args: unknown[]) {
 }
 
 function addMainScene(scene: Phaser.Scene) {
-  const left = 50;
+
+  const left = 0;
   const top = 0;
 
   const text1 = scene.add.text(left, top + 100, "Main Scene Text 1", { fontSize: "32px" });
@@ -66,7 +71,7 @@ function addMainScene(scene: Phaser.Scene) {
   const text2 = scene.add.text(left, top + 200, "Main Scene Text 2", { fontSize: "32px" });
 
   const rotatingText1 = scene.add.text(
-    left + 100,
+    left,
     top + 300,
     "All 2 Text must be cleared and restarted in storyBook",
     {
@@ -105,8 +110,12 @@ function addMainScene(scene: Phaser.Scene) {
 }
 
 function createChildScene({ scene, sceneProxy }: ISceneProxyCreateArgs) {
-  const left = 50;
+  const left = 0;
   const top = 0;
+
+
+  const rect = new Phaser.GameObjects.Rectangle(scene, left, top, 256, 128, cssColorToInt('#016065')).setOrigin(0, 0);
+  scene.add.existing(rect);
 
   const textStyle = textStyle1;
 

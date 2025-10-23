@@ -1,8 +1,8 @@
 import { launchSceneWithRemoveCallback } from "./launchScene";
 import { ChildSceneProxy } from "./ChildSceneProxy";
-import { IStory } from "../../../../storybook/interfaces";
-import { delay } from "@kvisaz/phaser-sugar";
 import { getCanvasSize } from "./utils";
+import { IStory } from "../../../storybook/interfaces";
+import { delay } from "../../async";
 
 class TestScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;
@@ -43,7 +43,6 @@ export const launchSceneStory: IStory = {
     const sceneProxy = new ChildSceneProxy({
       scene,
       childKey: "TestScene2",
-      scale: 0.5
     });
 
     logScenes(scene.game, "after sceneProxy");

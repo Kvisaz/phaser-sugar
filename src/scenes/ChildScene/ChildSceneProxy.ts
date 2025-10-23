@@ -13,7 +13,9 @@ interface IProps {
   viewPort?: IViewPort;
   create?: SceneProxyCreateCallback;
   isAutoRun?: boolean;
-  scale?: number;
+  camera?: {
+    scale?: number;
+  }
 }
 
 /**
@@ -53,7 +55,7 @@ export class ChildSceneProxy extends Phaser.GameObjects.Rectangle {
       );
     }
 
-    const { scale } = this.props;
+    const scale = this.props.camera?.scale;
     if (scale) {
       this.childScene.cameras.main.setZoom(scale);
     }
