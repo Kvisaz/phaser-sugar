@@ -1,7 +1,10 @@
 # phaser-sugar
 Phaser 3.80 tools and utilities
 
-version 1.0.32
+- [GitHub](https://github.com/Kvisaz/phaser-sugar)
+- [Demo / Storybook](https://kvisaz.github.io/phaser-sugar/)
+
+version 1.0.33
 
 # Features
 - ChildSceneProxy - easy add child scene, like popup or ui, to pause main scene
