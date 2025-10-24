@@ -46,7 +46,7 @@ export const alignStory: IStory = {
         { text: "center" }
       ];
 
-    [...innerTestData, ...outerTestData].forEach(testData => {
+    const textObjects = [...innerTestData, ...outerTestData].map(testData => {
       const operations = testData.text.split(",").map(op => op.trim());
       const testText = new TextRectangleComponent({
         scene, text: testData.text, fontSize: 18, width: 150, height: 64
@@ -57,21 +57,13 @@ export const alignStory: IStory = {
         // @ts-ignore
         align[operation](testText);
       });
-
-    });
-    const leftInTopIn = new TextRectangleComponent({
-      scene, text: "leftIn,TopIn"
-    });
-    const leftInCenterY = new TextRectangleComponent({
-      scene, text: "leftInCenterY"
-    });
-    const leftInBottomIn = new TextRectangleComponent({
-      scene, text: "leftInBottomIn"
+      return testText;
     });
 
 
     return () => {
       anchor.destroy();
+      textObjects.forEach(textObject => textObject.destroy());
     };
   }
 };
