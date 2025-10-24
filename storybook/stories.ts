@@ -4,9 +4,12 @@ import { launchSceneAutoRunAndPauseMainStory } from "../src/scenes/ChildScene/la
 import { launchSceneAutoRunStory } from "../src/scenes/ChildScene/launchSceneAutoRun.story";
 import { launchSceneStory2 } from "../src/scenes/ChildScene/launchScene2.story";
 import { launchSceneStory } from "../src/scenes/ChildScene/launchScene.story";
+import { alignStory } from "../src/layout/Align.story";
 
 export const stories: IStoryListItem[] = Array.from(
   new Set<IStoryListItem>([
+    storyTitle("Align"),
+    alignStory,
     storyTitle("Child Scene"),
     launchSceneAutoRunAndPauseMainStory,
     launchSceneAutoRunStory,
