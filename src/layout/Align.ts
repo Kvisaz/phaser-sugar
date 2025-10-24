@@ -175,18 +175,36 @@ export class Align {
       return this;
     }
 
-    const { x, y } = formula(this.getBounds(item, anchorItem));
+    const { x, y } = formula(this.computeBoundsPair(item, anchorItem));
     this.setPosition(item, x + oX, y + oY);
 
     return this;
   }
 
-  private getBounds(item: ISizeable, anchor: ISizeable): IBoundsPair {
+  private computeBoundsPair(
+    alignedObject: AlignObject,
+    anchorObject: ISizeable
+  ): IBoundsPair {
+    const alignmentSpace = getParent(alignedObject);
+
+    if (alignmentSpace == null) return this.getWorldBounds(alignedObject, anchorObject);
+
+    return {
+      aB: getRectangleInSpace(anchorObject as AlignObject, alignmentSpace),
+      iB: getRectangleInSpace(alignedObject, alignmentSpace)
+    };
+  }
+
+  private getWorldBounds(item: ISizeable, anchor: ISizeable): IBoundsPair {
     return {
       aB: anchor?.getBounds(),
       iB: item?.getBounds()
     };
   }
+}
+
+function getParent(alignedObject: AlignObject): Phaser.GameObjects.Container | undefined {
+  return (alignedObject as any).parentContainer;
 }
 
 interface ISizeable {
@@ -205,4 +223,48 @@ interface IPosition {
 
 interface IAlignFormula {
   (bounds: IBoundsPair): IPosition;
+}
+
+
+function getRectangleInSpace(
+  gameObject: Phaser.GameObjects.GameObject,
+  targetSpace: Phaser.GameObjects.Container | Phaser.Scene
+): Phaser.Geom.Rectangle {
+  const objectMatrix = new Phaser.GameObjects.Components.TransformMatrix();
+  const targetMatrix = new Phaser.GameObjects.Components.TransformMatrix();
+
+  (gameObject as any).getWorldTransformMatrix(objectMatrix);
+
+  if ((targetSpace as any).getWorldTransformMatrix) {
+    (targetSpace as any).getWorldTransformMatrix(targetMatrix);
+  }
+
+  const inverseTargetMatrix = new Phaser.GameObjects.Components.TransformMatrix();
+  inverseTargetMatrix.copyFrom(targetMatrix);
+  inverseTargetMatrix.invert();
+
+  const object = gameObject as any;
+  const objectWidth = object.displayWidth;
+  const objectHeight = object.displayHeight;
+  const originX = object.originX;
+  const originY = object.originY;
+
+  const cornerPoints = [
+    new Phaser.Math.Vector2(-originX * objectWidth, -originY * objectHeight),
+    new Phaser.Math.Vector2((1 - originX) * objectWidth, -originY * objectHeight),
+    new Phaser.Math.Vector2(-originX * objectWidth, (1 - originY) * objectHeight),
+    new Phaser.Math.Vector2((1 - originX) * objectWidth, (1 - originY) * objectHeight)
+  ];
+
+  for (const point of cornerPoints) {
+    objectMatrix.transformPoint(point.x, point.y, point);
+    inverseTargetMatrix.transformPoint(point.x, point.y, point);
+  }
+
+  const minX = Math.min(...cornerPoints.map(p => p.x));
+  const maxX = Math.max(...cornerPoints.map(p => p.x));
+  const minY = Math.min(...cornerPoints.map(p => p.y));
+  const maxY = Math.max(...cornerPoints.map(p => p.y));
+
+  return new Phaser.Geom.Rectangle(minX, minY, maxX - minX, maxY - minY);
 }
