@@ -1,13 +1,21 @@
-export interface AlignObject extends Phaser.GameObjects.GameObject, ISizeable, IPosition {
+import { getLocalBounds } from "../gameObjects/getLocalBounds";
+import { IPosition, ISizeable } from "../types";
+
+export interface AlignObject extends ISizeable, IPosition {
   setPosition(x: number, y: number): this;
 }
+
+interface IOptions {
+  localCoordinates?: boolean;
+}
+
 
 /** Align objects relative to the anchor with any origin **/
 export class Align {
   private anchorItem: ISizeable | undefined;
   private static errorSetAnchorMessage = "set anchor in Align first";
 
-  constructor(anchorItem?: ISizeable) {
+  constructor(anchorItem?: ISizeable, private options: IOptions = {}) {
     if (anchorItem) this.anchorItem = anchorItem;
   }
 
@@ -134,7 +142,7 @@ export class Align {
    * setLeftTop - place object with any origin
    */
   static setLeftTop(item: AlignObject, left: number, top: number) {
-    const iB = item.getBounds();
+    const iB = getLocalBounds(item);
     const dX = left - iB.left;
     const dY = top - iB.top;
     const x = item.x + dX;
@@ -175,22 +183,19 @@ export class Align {
       return this;
     }
 
-    const { x, y } = formula(this.getBounds(item, anchorItem));
+    const { x, y } = formula(this.getBoundsPair(item, anchorItem));
     this.setPosition(item, x + oX, y + oY);
 
     return this;
   }
 
-  private getBounds(item: ISizeable, anchor: ISizeable): IBoundsPair {
+  private getBoundsPair(item: ISizeable, anchor: ISizeable): IBoundsPair {
+    const { localCoordinates } = this.options;
     return {
-      aB: anchor?.getBounds(),
-      iB: item?.getBounds()
+      aB: localCoordinates ? getLocalBounds(anchor) : anchor.getBounds(),
+      iB: localCoordinates ? getLocalBounds(item) : item.getBounds()
     };
   }
-}
-
-interface ISizeable {
-  getBounds(): Phaser.Geom.Rectangle;
 }
 
 interface IBoundsPair {
@@ -198,11 +203,16 @@ interface IBoundsPair {
   iB: Phaser.Geom.Rectangle;
 }
 
-interface IPosition {
-  x: number;
-  y: number;
-}
 
 interface IAlignFormula {
   (bounds: IBoundsPair): IPosition;
+}
+
+export class AlignLocal extends Align {
+  constructor(anchorItem?: ISizeable, options?: IOptions) {
+    super(anchorItem, {
+      ...options,
+      localCoordinates: true
+    });
+  }
 }

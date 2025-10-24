@@ -1,4 +1,4 @@
-import { Align } from "./Align";
+import { Align, AlignLocal } from "./Align";
 import { TextRectangleComponent } from "../components";
 import { IStory } from "../../storybook/interfaces";
 import { cssColorToInt } from "../color";
@@ -7,7 +7,7 @@ export const alignStory: IStory = {
   title: "Align Tests",
   run: async (scene: Phaser.Scene) => {
 
-    const align = new Align();
+    const align = new AlignLocal();
     const sceneSize = scene.scale.gameSize;
     const anchor = new Phaser.GameObjects.Rectangle(scene, 0, 0,
       sceneSize.width / 2, sceneSize.height / 2, cssColorToInt("#4ca347"));
@@ -46,7 +46,7 @@ export const alignStory: IStory = {
         { text: "center" }
       ];
 
-    [...innerTestData, ...outerTestData].forEach(testData => {
+    const testObjects = [...innerTestData, ...outerTestData].map(testData => {
       const operations = testData.text.split(",").map(op => op.trim());
       const testText = new TextRectangleComponent({
         scene, text: testData.text, fontSize: 18, width: 150, height: 64
@@ -57,21 +57,14 @@ export const alignStory: IStory = {
         // @ts-ignore
         align[operation](testText);
       });
+      return testText;
+    });
 
-    });
-    const leftInTopIn = new TextRectangleComponent({
-      scene, text: "leftIn,TopIn"
-    });
-    const leftInCenterY = new TextRectangleComponent({
-      scene, text: "leftInCenterY"
-    });
-    const leftInBottomIn = new TextRectangleComponent({
-      scene, text: "leftInBottomIn"
-    });
 
 
     return () => {
       anchor.destroy();
+      testObjects.forEach(testObject => testObject.destroy());
     };
   }
 };
