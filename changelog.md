@@ -1,9 +1,9 @@
 
 # 1.1.0
 Critical changes!
-- Align now works in local coordinates, if you pass options.localCoordinates=true
+- Align now always works in local coordinates
 
-- AlignLocal - Align working in local coordinates
+- AlignGlobal - Align working in global coordinates
 
 
 # 1.0.34

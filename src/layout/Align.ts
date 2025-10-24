@@ -6,7 +6,7 @@ export interface AlignObject extends ISizeable, IPosition {
 }
 
 interface IOptions {
-  localCoordinates?: boolean;
+  globalCoordinates: boolean;
 }
 
 
@@ -14,9 +14,14 @@ interface IOptions {
 export class Align {
   private anchorItem: ISizeable | undefined;
   private static errorSetAnchorMessage = "set anchor in Align first";
+  private options: IOptions;
 
-  constructor(anchorItem?: ISizeable, private options: IOptions = {}) {
+  constructor(anchorItem?: ISizeable, options: Partial<IOptions> = {}) {
     if (anchorItem) this.anchorItem = anchorItem;
+    this.options = {
+      globalCoordinates: true,
+      ...options
+    };
   }
 
   /**
@@ -190,10 +195,10 @@ export class Align {
   }
 
   private getBoundsPair(item: ISizeable, anchor: ISizeable): IBoundsPair {
-    const { localCoordinates } = this.options;
+    const { globalCoordinates } = this.options;
     return {
-      aB: localCoordinates ? getLocalBounds(anchor) : anchor.getBounds(),
-      iB: localCoordinates ? getLocalBounds(item) : item.getBounds()
+      aB: globalCoordinates ? anchor.getBounds() : getLocalBounds(anchor),
+      iB: globalCoordinates ? item.getBounds() : getLocalBounds(item),
     };
   }
 }
@@ -208,11 +213,11 @@ interface IAlignFormula {
   (bounds: IBoundsPair): IPosition;
 }
 
-export class AlignLocal extends Align {
+export class AlignGlobal extends Align {
   constructor(anchorItem?: ISizeable, options?: IOptions) {
     super(anchorItem, {
       ...options,
-      localCoordinates: true
+      globalCoordinates: true
     });
   }
 }

@@ -9,6 +9,9 @@ export function getLocalOffset(gameObject: IChild): { x: number, y: number } {
     offset.x += c.x;
     offset.y += c.y;
   });
+
+  console.log('offset', offset);
+
   return offset;
 }
 

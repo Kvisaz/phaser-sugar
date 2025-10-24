@@ -1,4 +1,4 @@
-import { Align, AlignLocal } from "./Align";
+import { Align } from "./Align";
 import { TextRectangleComponent } from "../components";
 import { IStory } from "../../storybook/interfaces";
 import { cssColorToInt } from "../color";
@@ -7,7 +7,7 @@ export const alignStory: IStory = {
   title: "Align Tests",
   run: async (scene: Phaser.Scene) => {
 
-    const align = new AlignLocal();
+    const align = new Align();
     const sceneSize = scene.scale.gameSize;
     const anchor = new Phaser.GameObjects.Rectangle(scene, 0, 0,
       sceneSize.width / 2, sceneSize.height / 2, cssColorToInt("#4ca347"));
@@ -59,7 +59,6 @@ export const alignStory: IStory = {
       });
       return testText;
     });
-
 
 
     return () => {
