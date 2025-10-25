@@ -95,6 +95,9 @@ class ChildSceneTest extends Phaser.Scene {
     scene.cameras.main.setScroll(0);
     align.anchor(bg);
 
+    /** центрируем на карте **/
+    this.cameras.main.startFollow(bg);
+
     const textProps = {
       scene, text: "topIn,leftIn", fontSize: 32, textPaddingX: 16, textPaddingY: 16
     };

@@ -46,14 +46,14 @@ const defaultConfig: IViewPortConfig = {
  * - вы перемещаете фактически viewport этой камеры
  *
  *
- * Как использовать
+ * Советы
+ * 1. Выберите в child Scene объект, который всегда должен быть в кадре
+ * и сделайте для него this.cameras.main.startFollow();
+ * к примеру, это могут быть условные рамки мини-карты, или мира,
+ * или неподвижный фон для скроллящегося списка
+ * - тогда viewPort будет всегда показывать то,  что вы хотите, при любых манипуляциях с viewport
+ * без такого startFollow - камера слетает при масштабировании
  *
- * 1. Мини-карта
- * Child Scene должна проектироваться исходя из видимых размеров всей карты
- * В Child Scene следует установить camera.scrollX, camera.scrollY на центр видимости
- * - то есть центральную точку видимого мира
- *
- * Текущая проблема - при масштабировании камеры смещаются координаты
  */
 export class ViewPort extends Phaser.GameObjects.Rectangle {
   private config: IViewPortConfig;
@@ -91,19 +91,19 @@ export class ViewPort extends Phaser.GameObjects.Rectangle {
   }
 
   public updateLayout() {
+    const childScene = this.childScene;
+    if (!childScene) return;
+
     const bounds = this.getBounds();
-    const camera = this.childScene?.cameras.main;
-    if(camera) {
-      const cameraBounds = camera.getBounds();
-      camera.setZoom(this.scale);
-      camera.setViewport(
-        bounds.left,
-        bounds.top,
-        bounds.width,
-        bounds.height
-      );
-      camera.setScroll(cameraBounds.centerX, cameraBounds.centerY);
-    }
+    const camera = childScene.cameras.main;
+
+    camera.setViewport(
+      bounds.left,
+      bounds.top,
+      bounds.width,
+      bounds.height
+    );
+    camera.setZoom(this.scale);
   }
 
   get childScene(): Phaser.Scene | undefined {
