@@ -21,7 +21,8 @@ export const viewPortStory: IStory = {
       height: 320,
       viewPortOptions: {
         fillColor: "#2a982a",
-        fillAlpha: 0.2
+        fillAlpha: 0.2,
+        autoCenter: true
       }
     });
     scene.add.existing(viewPort);
@@ -96,7 +97,7 @@ class ChildSceneTest extends Phaser.Scene {
     align.anchor(bg);
 
     /** центрируем на карте **/
-    this.cameras.main.startFollow(bg);
+    // this.cameras.main.startFollow(bg);
 
     const textProps = {
       scene, text: "topIn,leftIn", fontSize: 32, textPaddingX: 16, textPaddingY: 16

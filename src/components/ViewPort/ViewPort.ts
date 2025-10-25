@@ -1,4 +1,5 @@
 import { cssColorToInt } from "../../color";
+import { getAllSceneBounds } from "../../scenes";
 
 interface IProps {
   /** where viewport will be live**/
@@ -18,6 +19,7 @@ interface IViewPortConfig {
   strokeColor: string;
   fillAlpha: number;
   strokeWidth: number;
+  autoCenter?: boolean;
 }
 
 const defaultConfig: IViewPortConfig = {
@@ -53,6 +55,17 @@ const defaultConfig: IViewPortConfig = {
  * или неподвижный фон для скроллящегося списка
  * - тогда viewPort будет всегда показывать то,  что вы хотите, при любых манипуляциях с viewport
  * без такого startFollow - камера слетает при масштабировании
+ *
+ * 2. можно вместо startFollow назначить autoCenter в опциях
+ * - тогда камера автоматически будет смотреть в центр всех детей сцены
+ * но это подходит только для случая, если они все должны быть видны
+ * к примеру для скроллящегося списка это приведет к сбою
+ *
+ * кроме того autoCenter имеет затраты на дополнительные вычисления
+ * и в общем случае startFollow на выбранном объекте в childScene - более эффективен
+ *
+ * 3. для разовых операций можно вручную вызывать updateLayout с автоцентрирование
+ * которое будет одноразовым и не изменит конфиг
  *
  */
 export class ViewPort extends Phaser.GameObjects.Rectangle {
@@ -90,10 +103,9 @@ export class ViewPort extends Phaser.GameObjects.Rectangle {
     return this;
   }
 
-  public updateLayout() {
+  public updateLayout(autoCenter?: boolean) {
     const childScene = this.childScene;
     if (!childScene) return;
-
     const bounds = this.getBounds();
     const camera = childScene.cameras.main;
 
@@ -104,6 +116,15 @@ export class ViewPort extends Phaser.GameObjects.Rectangle {
       bounds.height
     );
     camera.setZoom(this.scale);
+
+    autoCenter = autoCenter ?? this.config.autoCenter;
+    if (autoCenter) {
+      const childBounds = getAllSceneBounds(childScene);
+      camera.centerOn(
+        childBounds.centerX,
+        childBounds.centerY
+      );
+    }
   }
 
   get childScene(): Phaser.Scene | undefined {

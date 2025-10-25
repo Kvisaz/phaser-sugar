@@ -8,14 +8,14 @@ export function getAllSceneBounds(scene: Phaser.Scene): Phaser.Geom.Rectangle {
 
   scene.children.each((child: Phaser.GameObjects.GameObject) => {
     // Пропускаем объекты без геометрии (например, контейнеры без размеров)
-    const bounds = (child as any).getBounds?.();
+    const bounds = (child as any)?.getBounds?.();
     if (!bounds) return;
 
     if (!initialized) {
       allBounds = Phaser.Geom.Rectangle.Clone(bounds);
       initialized = true;
     } else {
-      Phaser.Geom.Rectangle.Union(allBounds, bounds, allBounds);
+      allBounds = Phaser.Geom.Rectangle.Union(allBounds, bounds);
     }
   });
 
