@@ -5,9 +5,12 @@ import { launchSceneAutoRunStory } from "../src/scenes/ChildScene/launchSceneAut
 import { launchSceneStory2 } from "../src/scenes/ChildScene/launchScene2.story";
 import { launchSceneStory } from "../src/scenes/ChildScene/launchScene.story";
 import { alignStory } from "../src/layout/Align.story";
+import { viewPortStory } from "../src/components/ViewPort/ViewPort.story";
 
 export const stories: IStoryListItem[] = Array.from(
   new Set<IStoryListItem>([
+    storyTitle("View Port"),
+    viewPortStory,
     storyTitle("Align"),
     alignStory,
     storyTitle("Child Scene"),
