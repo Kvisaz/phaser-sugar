@@ -1,3 +1,5 @@
+import { cssColorToInt } from "../../color";
+
 interface IProps {
   /** where viewport will be live**/
   scene: Phaser.Scene;
@@ -42,6 +44,16 @@ const defaultConfig: IViewPortConfig = {
  * 3. Игровой объект ViewPort - Phaser.GameObjects.Rectangle - определяет позицию и размеры камеры
  * на Child Scene. Это означает, что перемещая ViewPort
  * - вы перемещаете фактически viewport этой камеры
+ *
+ *
+ * Как использовать
+ *
+ * 1. Мини-карта
+ * Child Scene должна проектироваться исходя из видимых размеров всей карты
+ * В Child Scene следует установить camera.scrollX, camera.scrollY на центр видимости
+ * - то есть центральную точку видимого мира
+ *
+ * Текущая проблема - при масштабировании камеры смещаются координаты
  */
 export class ViewPort extends Phaser.GameObjects.Rectangle {
   private config: IViewPortConfig;
@@ -53,6 +65,8 @@ export class ViewPort extends Phaser.GameObjects.Rectangle {
       ...defaultConfig,
       ...props.viewPortOptions
     };
+    this.setFillStyle(cssColorToInt(this.config.fillColor), this.config.fillAlpha);
+    this.setStrokeStyle(this.config.strokeWidth, cssColorToInt(this.config.strokeColor));
 
     this.addChildScene(props.childKey, props.childScene);
     this.updateLayout();
@@ -78,12 +92,18 @@ export class ViewPort extends Phaser.GameObjects.Rectangle {
 
   public updateLayout() {
     const bounds = this.getBounds();
-    this.childScene?.cameras.main.setViewport(
-      bounds.left,
-      bounds.top,
-      bounds.width,
-      bounds.height
-    );
+    const camera = this.childScene?.cameras.main;
+    if(camera) {
+      const cameraBounds = camera.getBounds();
+      camera.setZoom(this.scale);
+      camera.setViewport(
+        bounds.left,
+        bounds.top,
+        bounds.width,
+        bounds.height
+      );
+      camera.setScroll(cameraBounds.centerX, cameraBounds.centerY);
+    }
   }
 
   get childScene(): Phaser.Scene | undefined {

@@ -4,6 +4,7 @@ import { getCanvasSize } from "../../scenes/ChildScene/utils";
 import { cssColorToInt } from "../../color";
 import { TextRectangleComponent } from "../TextRectangle";
 import { ViewPort } from "./ViewPort";
+import { delay, tweenPromise } from "../../async";
 
 export const viewPortStory: IStory = {
   title: "View Port Story",
@@ -17,9 +18,37 @@ export const viewPortStory: IStory = {
       childKey,
       childScene: new ChildSceneTest(childKey),
       width: 640,
-      height: 480
+      height: 320,
+      viewPortOptions: {
+        fillColor: "#2a982a",
+        fillAlpha: 0.2
+      }
     });
     scene.add.existing(viewPort);
+
+    align.center(viewPort);
+
+    await delay(2000);
+    align.leftIn(viewPort).topIn(viewPort);
+    const toBounds = viewPort.getBounds();
+    align.center(viewPort);
+    await tweenPromise({
+      scene,
+      config: {
+        targets: viewPort,
+        props: {
+          x: toBounds.left + toBounds.width/2,
+          y: toBounds.top + toBounds.height/2
+        },
+        duration: 400,
+        onUpdate: ()=>{
+          viewPort.updateLayout();
+        }
+      }
+    });
+
+    await delay(2000);
+    viewPort.setScale(0.5);
 
     return () => {
       viewPort.destroy();
@@ -33,33 +62,37 @@ class ChildSceneTest extends Phaser.Scene {
     super({ key });
   }
 
-  init(){
+  init() {
     [
       Phaser.Scenes.Events.DESTROY,
       Phaser.Scenes.Events.PAUSE,
       Phaser.Scenes.Events.RESUME,
-      Phaser.Scenes.Events.SHUTDOWN,
+      Phaser.Scenes.Events.SHUTDOWN
     ].forEach(event => {
       this.events.once(event, () => {
         console.log(`ChildSceneTest - ${event}`);
       });
-    })
+    });
 
   }
 
   create() {
 
-    console.log('ChildSceneTest create() called');
+    console.log("ChildSceneTest create() called");
 
     const scene = this;
 
     const align = new Align().anchorSceneScreen(scene);
     const canvasSize = getCanvasSize(scene);
-    const bg = new Phaser.GameObjects.Rectangle(scene, 0, 0, canvasSize.width, canvasSize.height, cssColorToInt("#30af30"));
+    // const width = canvasSize.width; const height = canvasSize.height;
+    const width = 640;
+    const height = 320;
+    const bg = new Phaser.GameObjects.Rectangle(scene, 0, 0, width, height, cssColorToInt("#30af30"));
     bg.setStrokeStyle(2, cssColorToInt("#000000"));
     scene.add.existing(bg);
 
-    align.center(bg);
+    align.leftIn(bg).topIn(bg);
+    scene.cameras.main.setScroll(0);
     align.anchor(bg);
 
     const textProps = {
