@@ -5,6 +5,7 @@
 - Layout for area layout
 - AlignMethod as command collectios for Align.applyMethod(alignMethod, obj, ...args)
 - align chains for array layouts - rows, columns, chains
+- ArrayAlignObject class for array layout without containers
 
 
 # 1.0.34

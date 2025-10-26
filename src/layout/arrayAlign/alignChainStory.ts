@@ -30,6 +30,8 @@ export const alignChainStory: IStory = {
     });
 
     arrayAlign.row(textObjects, 23);
+    align.anchorSceneScreen(scene)
+      .center(arrayAlign.alignObject(textObjects));
 
 
     return () => {
