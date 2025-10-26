@@ -6,11 +6,11 @@ import { getArrayBounds } from "../../gameObjects";
  * Вычисляет размеры объектов на данный момент времени
  * если они изменятся вызывай новый или updateBounds
  * */
-export class ArrayAlignObject<T extends AlignObject> implements AlignObject {
-  constructor(private objects: T[]) {
+export class ArrayAlignObject implements AlignObject {
+  constructor(private objects: AlignObject[]) {
   }
 
-  all(): T[] {
+  all(): AlignObject[] {
     return this.objects;
   }
 
