@@ -4,12 +4,20 @@ Phaser 3.80 tools and utilities
 - [GitHub](https://github.com/Kvisaz/phaser-sugar)
 - [Storybook](https://kvisaz.github.io/phaser-sugar/storybook/index.html)
 - [Docs draft web page](https://kvisaz.github.io/phaser-sugar/)
+- [CHANGE_LOG](changelog.md)
 
-version 1.0.33
+version 1.1.0
 
 # Features
+- ViewPort component
+- typeGuards for TypeScript: 
+  - isScene, isRectangle, hasGetBounds, hasWidthHeight
+  -  isContainer, isImage, isSpite, isText
+- Layout for area layout
+- AlignMethod as command collectios for Align.applyMethod(alignMethod, obj, ...args)
+- align chains for array layouts - rows, columns, chains
+- ArrayAlignObject class for array layout without containers
 - ChildSceneProxy - easy add child scene, like popup or ui, to pause main scene
-- isContainer, isImage, isSpite, isText - typescript safe type checkers
 - setContainerInteractive (add size before setInteractive)
 - Align objects - any GameObject with x,y, setPosition, getBounds
 - NineSlice, Zone added as type to Align
