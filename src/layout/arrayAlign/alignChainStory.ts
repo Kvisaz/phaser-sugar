@@ -3,7 +3,7 @@ import { IStory } from "../../../storybook/interfaces";
 import { cssColorToInt } from "../../color";
 import { AlignMethod } from "../Align/types";
 import { Align } from "../Align/Align";
-import { arrayAlign } from "./alignChain";
+import { arrayAlign } from "./arrayAlign";
 
 export const alignChainStory: IStory = {
   title: "Align Chains",
