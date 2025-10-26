@@ -1,7 +1,7 @@
 import { Align } from "./Align";
-import { TextRectangleComponent } from "../components";
-import { IStory } from "../../storybook/interfaces";
-import { cssColorToInt } from "../color";
+import { TextRectangleComponent } from "../../components";
+import { IStory } from "../../../storybook/interfaces";
+import { cssColorToInt } from "../../color";
 
 export const alignStory: IStory = {
   title: "Align Tests",

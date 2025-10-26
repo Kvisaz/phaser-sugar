@@ -1,0 +1,56 @@
+import { Align, AlignObject } from "../Align/Align";
+import { IBoundable } from "../types";
+import { AlignMethod } from "../Align/types";
+
+export type ILayoutTarget = AlignObject & IBoundable;
+
+interface IRowConfig {
+  gap: number;
+  align: AlignMethod;
+  anchor?: IBoundable;
+}
+
+const defaultRowConfig: IRowConfig = {
+  gap: 0,
+  align: AlignMethod.RIGHT_TO
+};
+
+let rowAlign = new Align();
+const alignChain = <T extends ILayoutTarget>(objects: T[], options?: Partial<IRowConfig>): T[] => {
+  /** нечего выравнивать **/
+  if (objects.length === 0) return objects;
+
+  const config: IRowConfig = { ...defaultRowConfig, ...options };
+  let currentAnchor: IBoundable = config.anchor ?? objects[0];
+
+  /** нет анкора (или нечего выранивать) **/
+  if (currentAnchor == null) return objects;
+
+  rowAlign.anchor(currentAnchor);
+  const { gap, align } = config;
+
+  for (let i = 0; i < objects.length; i++) {
+    const obj = objects[i];
+    rowAlign.applyMethod(align, obj, gap);
+    rowAlign.anchor(obj);
+  }
+
+  return objects;
+};
+
+export const arrayAlign = {
+  alignChain: alignChain,
+  row: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, { align: AlignMethod.RIGHT_TO, gap }),
+  rowReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+    align: AlignMethod.LEFT_TO,
+    gap
+  }),
+  column: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+    align: AlignMethod.BOTTOM_TO,
+    gap
+  }),
+  columnReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+    align: AlignMethod.TOP_TO,
+    gap
+  })
+};
