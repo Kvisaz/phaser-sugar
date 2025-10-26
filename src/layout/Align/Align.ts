@@ -1,4 +1,6 @@
-export interface AlignObject extends Phaser.GameObjects.GameObject, ISizeable, IPosition {
+import { AlignMethod } from "./types";
+
+export interface AlignObject extends ISizeable, IPosition {
   setPosition(x: number, y: number): this;
 }
 
@@ -162,6 +164,13 @@ export class Align {
       this.anchor(next);
     }
     return this;
+  }
+
+  /**
+   * Типобезопасное обращение к методам выравнивания по enum
+   */
+  applyMethod(method: AlignMethod, item: AlignObject, ...args: number[]): this {
+    return this[method](item, ...args);
   }
 
   private applyFormula(item: AlignObject, oX: number, oY: number, formula: IAlignFormula): this {
