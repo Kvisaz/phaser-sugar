@@ -1,6 +1,6 @@
 import { AlignMethod } from "./types";
 
-export interface AlignObject extends Phaser.GameObjects.GameObject, ISizeable, IPosition {
+export interface AlignObject extends ISizeable, IPosition {
   setPosition(x: number, y: number): this;
 }
 
