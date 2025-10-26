@@ -1,8 +1,7 @@
 import { Align, AlignObject } from "../Align/Align";
 import { IBoundable } from "../types";
 import { AlignMethod } from "../Align/types";
-
-export type ILayoutTarget = AlignObject & IBoundable;
+import { ILayoutTarget } from "./types";
 
 interface IRowConfig {
   gap: number;
