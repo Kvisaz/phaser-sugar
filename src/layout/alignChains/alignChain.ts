@@ -16,7 +16,7 @@ const defaultRowConfig: IRowConfig = {
 };
 
 let rowAlign = new Align();
-const alignChain = <T extends ILayoutTarget>(objects: T[], options?: Partial<IRowConfig>): T[] => {
+const makeChain = <T extends ILayoutTarget>(objects: T[], options?: Partial<IRowConfig>): T[] => {
   /** нечего выравнивать **/
   if (objects.length === 0) return objects;
 
@@ -39,17 +39,17 @@ const alignChain = <T extends ILayoutTarget>(objects: T[], options?: Partial<IRo
 };
 
 export const arrayAlign = {
-  alignChain: alignChain,
-  row: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, { align: AlignMethod.RIGHT_TO, gap }),
-  rowReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+  chain: makeChain,
+  row: <T extends ILayoutTarget>(objects: T[], gap = 0) => makeChain(objects, { align: AlignMethod.RIGHT_TO, gap }),
+  rowReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => makeChain(objects, {
     align: AlignMethod.LEFT_TO,
     gap
   }),
-  column: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+  column: <T extends ILayoutTarget>(objects: T[], gap = 0) => makeChain(objects, {
     align: AlignMethod.BOTTOM_TO,
     gap
   }),
-  columnReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => alignChain(objects, {
+  columnReverse: <T extends ILayoutTarget>(objects: T[], gap = 0) => makeChain(objects, {
     align: AlignMethod.TOP_TO,
     gap
   })
