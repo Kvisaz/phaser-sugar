@@ -3,7 +3,7 @@ import { IBoundable } from "../types";
 import { AlignMethod } from "../Align/types";
 import { ILayoutTarget } from "./types";
 
-interface IRowConfig {
+export interface IRowConfig {
   gap: number;
   align: AlignMethod;
   anchor?: IBoundable;
