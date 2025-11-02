@@ -1,4 +1,4 @@
-import { Align, AlignObject } from "../Align/Align";
+import { Align } from "../Align/Align";
 import { IBoundable } from "../types";
 import { AlignMethod } from "../Align/types";
 import { ILayoutTarget } from "./types";

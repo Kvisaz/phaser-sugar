@@ -1,7 +1,7 @@
-import { TextRectangleComponent } from "../../components";
-import { IStory } from "../../../storybook/interfaces";
-import { cssColorToInt } from "../../color";
-import { Layout } from "./Layout";
+import { TextRectangleComponent } from "../../src/components";
+import { IStory } from "../interfaces";
+import { cssColorToInt } from "../../src/color";
+import { Layout } from "../../src/layout/Layout/Layout";
 
 
 export const layoutStory: IStory = {

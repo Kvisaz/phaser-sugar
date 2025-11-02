@@ -1,8 +1,8 @@
-import { launchSceneWithRemoveCallback } from "./launchScene";
-import { ChildSceneProxy } from "./ChildSceneProxy";
-import { getCanvasSize } from "./utils";
-import { IStory } from "../../../storybook/interfaces";
-import { delay } from "../../async";
+import { launchSceneWithRemoveCallback } from "../../src/scenes/ChildScene/launchScene";
+import { ChildSceneProxy } from "../../src/scenes/ChildScene/ChildSceneProxy";
+import { getCanvasSize } from "../../src/scenes/ChildScene/utils";
+import { IStory } from "../interfaces";
+import { delay } from "../../src/async";
 
 class TestScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;

@@ -1,5 +1,5 @@
-import { AlignObject } from "../Align/Align";
 import { getArrayBounds } from "../../gameObjects";
+import { AlignObject } from "../types";
 
 
 /**

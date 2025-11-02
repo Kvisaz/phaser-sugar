@@ -1,4 +1,4 @@
-export interface IBoundable {
+interface IBoundable {
   getBounds(): Phaser.Geom.Rectangle;
 }
 

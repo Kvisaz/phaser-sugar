@@ -1,8 +1,5 @@
 import { AlignMethod } from "./types";
-
-export interface AlignObject extends ISizeable, IPosition {
-  setPosition(x: number, y: number): this;
-}
+import { AlignObject, IPosition, ISizeable } from "../types";
 
 /** Align objects relative to the anchor with any origin **/
 export class Align {
@@ -198,18 +195,9 @@ export class Align {
   }
 }
 
-interface ISizeable {
-  getBounds(): Phaser.Geom.Rectangle;
-}
-
 interface IBoundsPair {
   aB: Phaser.Geom.Rectangle;
   iB: Phaser.Geom.Rectangle;
-}
-
-interface IPosition {
-  x: number;
-  y: number;
 }
 
 interface IAlignFormula {

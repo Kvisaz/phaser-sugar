@@ -1,9 +1,9 @@
-import { ChildSceneProxy, ISceneProxyCreateArgs } from "./ChildSceneProxy";
+import { ChildSceneProxy, ISceneProxyCreateArgs } from "../../src/scenes/ChildScene/ChildSceneProxy";
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
-import { SceneUtils } from "../SceneUtils";
-import { IStory } from "../../../storybook/interfaces";
-import { cssColorToInt } from "../../color";
+import { SceneUtils } from "../../src/scenes/SceneUtils";
+import { IStory } from "../interfaces";
+import { cssColorToInt } from "../../src/color";
 
 const textStyle1: TextStyle = {
   fontSize: "32px",

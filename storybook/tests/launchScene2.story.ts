@@ -1,8 +1,8 @@
-import { ChildSceneProxy } from "./ChildSceneProxy";
+import { ChildSceneProxy } from "../../src/scenes/ChildScene/ChildSceneProxy";
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import { SceneUtils } from "../SceneUtils";
-import { IStory } from "../../../storybook/interfaces";
-import { Align } from "../../layout";
+import { SceneUtils } from "../../src/scenes/SceneUtils";
+import { IStory } from "../interfaces";
+import { Align } from "../../src/layout";
 
 const textStyle1: TextStyle = {
   fontSize: "32px",

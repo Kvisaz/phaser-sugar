@@ -1,9 +1,9 @@
-import { TextRectangleComponent } from "../../components";
-import { IStory } from "../../../storybook/interfaces";
-import { cssColorToInt } from "../../color";
-import { AlignMethod } from "../Align/types";
-import { Align } from "../Align/Align";
-import { arrayAlign } from "./arrayAlign";
+import { TextRectangleComponent } from "../../src/components";
+import { IStory } from "../interfaces";
+import { cssColorToInt } from "../../src/color";
+import { AlignMethod } from "../../src/layout/Align/types";
+import { Align } from "../../src/layout/Align/Align";
+import { arrayAlign } from "../../src/layout/arrayAlign/arrayAlign";
 
 export const alignChainStory: IStory = {
   title: "Align Chains",

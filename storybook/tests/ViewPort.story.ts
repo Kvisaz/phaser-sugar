@@ -1,10 +1,10 @@
-import { IStory } from "../../../storybook/interfaces";
-import { Align } from "../../layout";
-import { getCanvasSize } from "../../scenes/ChildScene/utils";
-import { cssColorToInt } from "../../color";
-import { TextRectangleComponent } from "../TextRectangle";
-import { ViewPort } from "./ViewPort";
-import { delay, tweenPromise } from "../../async";
+import { IStory } from "../interfaces";
+import { Align } from "../../src/layout";
+import { getCanvasSize } from "../../src/scenes/ChildScene/utils";
+import { cssColorToInt } from "../../src/color";
+import { TextRectangleComponent } from "../../src/components/TextRectangle";
+import { ViewPort } from "../../src/components/ViewPort/ViewPort";
+import { delay, tweenPromise } from "../../src/async";
 
 export const viewPortStory: IStory = {
   title: "View Port Story",

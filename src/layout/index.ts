@@ -1,2 +1,5 @@
-export * from './Align/Align';
-export * from './Layout';
+export * from "./Align";
+export * from "./arrayAlign";
+export * from "./Layout";
+export * from "./LayoutArea";
+export * from "./types";
