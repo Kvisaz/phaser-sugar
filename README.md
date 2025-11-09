@@ -6,9 +6,10 @@ Phaser 3.80 tools and utilities
 - [Docs draft web page](https://kvisaz.github.io/phaser-sugar/)
 - [CHANGE_LOG](changelog.md)
 
-version 1.1.0
+version 1.1.5
 
 # Features
+- [layoutColumn, layoutRow, layoutChain](docs/pages/layoutChain.md)
 - ViewPort component
 - typeGuards for TypeScript: 
   - isScene, isRectangle, hasGetBounds, hasWidthHeight

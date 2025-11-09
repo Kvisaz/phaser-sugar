@@ -1,4 +1,7 @@
 
+# 1.1.5
+- layoutChain, layoutRow, layoutColumn 
+
 # 1.1.0
 - ViewPort component 
 - typeGuards isScene, isRectangle, hasGetBounds, hasWidthHeight
