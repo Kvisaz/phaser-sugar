@@ -7,6 +7,8 @@ import { AlignObject } from "../types";
  * если они изменятся вызывай новый или updateBounds
  * */
 export class ArrayAlignObject implements AlignObject {
+  type = "ArrayAlignObject";
+
   constructor(private objects: AlignObject[]) {
   }
 
@@ -57,4 +59,13 @@ export class ArrayAlignObject implements AlignObject {
   get y(): number {
     return this.getBounds().y;
   }
+}
+
+export function isArrayAlignObject(t: unknown): t is ArrayAlignObject {
+  return (t as ArrayAlignObject).type === "ArrayAlignObject";
+}
+
+export function proofArrayAlignObject(t: unknown): ArrayAlignObject | undefined {
+  if (isArrayAlignObject(t)) return t;
+  return undefined;
 }

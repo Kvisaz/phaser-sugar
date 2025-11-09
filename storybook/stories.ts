@@ -8,6 +8,7 @@ import { alignStory } from "./tests/Align.story";
 import { viewPortStory } from "./tests/ViewPort.story";
 import { alignChainStory } from "./tests/alignChainStory";
 import { layoutStory } from "./tests/Layout.story";
+import { alignArrStory } from "./tests/alignArr.story";
 
 export const stories: IStoryListItem[] = Array.from(
   new Set<IStoryListItem>([
@@ -16,6 +17,7 @@ export const stories: IStoryListItem[] = Array.from(
     storyTitle("Align"),
     alignStory,
     alignChainStory,
+    alignArrStory,
     layoutStory,
     storyTitle("Child Scene"),
     launchSceneAutoRunAndPauseMainStory,
