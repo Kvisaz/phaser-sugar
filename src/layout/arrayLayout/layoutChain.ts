@@ -1,26 +1,33 @@
 import { Align } from "../Align/Align";
 import { AlignObject, IBoundable } from "../types";
-import { AlignMethod, isLayoutMethodOffsetBothXY, isLayoutMethodOffsetX, isLayoutMethodOffsetY } from "../Align/types";
+import { AlignMethod } from "../Align/types";
 import { ArrayAlignObject, isArrayAlignObject } from "../ArrayAlignObject/ArrayAlignObject";
-import { safeArray } from "../../collections";
 
 export interface ILayoutConfig {
   /** objects for layout, ArrayAlignObject is a special wrapper for objects array **/
   children: AlignObject[] | ArrayAlignObject;
   /** anchor for layout, if not defined - children[0] **/
   anchor?: AlignObject;
-  /** offset for next in children, chidlren all **/
-  offsetX: number | ((i: number) => number);
-  offsetY: number | ((i: number) => number);
-  /** rules for next element layout **/
-  rules: AlignMethod[];
+
+  /** apple to next, anchor is previous **/
+  alignToNext: AlignMethod;
+  nextOffsetX?: number | ((i: number) => number);
+  nextOffsetY?: number | ((i: number) => number);
+
+  /** apple to next, anchor is anchor or first child **/
+  alignToAnchor: AlignMethod;
+  anchorOffsetX?: number | ((i: number) => number);
+  anchorOffsetY?: number | ((i: number) => number);
 }
 
 const defaultRowConfig: ILayoutConfig = {
   children: [],
-  offsetX: 0,
-  offsetY: 0,
-  rules: [AlignMethod.RIGHT_TO]
+  alignToNext: AlignMethod.RIGHT_TO,
+  nextOffsetX: 0,
+  nextOffsetY: 0,
+  alignToAnchor: AlignMethod.CENTER_Y,
+  anchorOffsetX: 0,
+  anchorOffsetY: 0
 };
 
 let align = new Align();
@@ -38,24 +45,26 @@ export const layoutChain = (options: ILayoutConfig): ArrayAlignObject => {
 
   const firstObject = layoutObjects[0];
   const config: ILayoutConfig = { ...defaultRowConfig, ...options };
-  let currentAnchor: IBoundable = config.anchor ?? firstObject;
+  const anchor: IBoundable = config.anchor ?? firstObject;
 
   /** no anchor or anchor is single object **/
-  if (currentAnchor == null || currentAnchor === firstObject) return arrayAlignObject;
+  if (anchor == null) return arrayAlignObject;
 
-  align.anchor(currentAnchor);
-  const { rules } = config;
+  if (layoutObjects.length === 1 && anchor === firstObject) return arrayAlignObject;
+
 
   for (let i = 0; i < layoutObjects.length; i++) {
-    const obj = layoutObjects[i];
-    rules.forEach(rule => {
-      const nextOffsetX = typeof config.offsetX === "function" ? config.offsetX(i) : config.offsetX;
-      const nextOffsetY = typeof config.offsetY === "function" ? config.offsetY(i) : config.offsetY;
-      const offsetX = isLayoutMethodOffsetX(rule) || isLayoutMethodOffsetBothXY(rule) ? nextOffsetX : undefined;
-      const offsetY = isLayoutMethodOffsetY(rule) || isLayoutMethodOffsetBothXY(rule) ? nextOffsetY : undefined;
-      const offsets = safeArray([offsetX, offsetY]);
-      align.applyMethod(rule, obj, ...offsets);
-    });
+    const next = layoutObjects[i];
+    // align to anchor
+    align.anchor(anchor).applyMethod(config.alignToAnchor, next);
+    next.x += typeof config.anchorOffsetX === "function" ? config.anchorOffsetX?.(i) : config.anchorOffsetX ?? 0;
+    next.y += typeof config.anchorOffsetY === "function" ? config.anchorOffsetY?.(i) : config.anchorOffsetY ?? 0;
+
+    // align to previous
+    const prev = layoutObjects[i - 1] ?? anchor;
+    align.anchor(prev).applyMethod(config.alignToNext, next);
+    next.x += typeof config.nextOffsetX === "function" ? config.nextOffsetX?.(i) : config.nextOffsetX ?? 0;
+    next.y += typeof config.nextOffsetY === "function" ? config.nextOffsetY?.(i) : config.nextOffsetY ?? 0;
   }
 
   return arrayAlignObject;
@@ -63,20 +72,20 @@ export const layoutChain = (options: ILayoutConfig): ArrayAlignObject => {
 
 type ILayoutOptions = Partial<ILayoutConfig> & { children: AlignObject[] | ArrayAlignObject };
 
-export function layoutRow(options: ILayoutOptions): ArrayAlignObject {
+export function layoutRow({ children, ...options}: ILayoutOptions): ArrayAlignObject {
   return layoutChain({
-    children: options.children,
-    rules: [AlignMethod.RIGHT_TO, ...(options.rules ?? [])],
-    offsetX: options.offsetX ?? 0,
-    offsetY: options.offsetY ?? 0
+    children,
+    alignToNext: AlignMethod.RIGHT_TO,
+    alignToAnchor: AlignMethod.CENTER_Y,
+    ...options
   });
 }
 
-export function layoutColumn(options: ILayoutOptions): ArrayAlignObject {
+export function layoutColumn({ children, ...options}: ILayoutOptions): ArrayAlignObject {
   return layoutChain({
-    children: options.children,
-    rules: [AlignMethod.BOTTOM_TO, ...(options.rules ?? [])],
-    offsetX: options.offsetX ?? 0,
-    offsetY: options.offsetY ?? 0
+    children,
+    alignToNext: AlignMethod.BOTTOM_TO,
+    alignToAnchor: AlignMethod.CENTER_X,
+    ...options
   });
 }
