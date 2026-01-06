@@ -33,7 +33,8 @@ export function isImage(obj: Phaser.GameObjects.GameObject): obj is Phaser.GameO
   return obj.type === "Image";
 }
 
-export function isSprite(obj: Phaser.GameObjects.GameObject): obj is Phaser.GameObjects.Image {
+export function isSprite(obj: Phaser.GameObjects.GameObject): obj is Phaser.GameObjects.Sprite {
+  /** Sprite возвращает тип Phaser.GameObjects.Sprite, а не Image. **/
   return obj.type === "Sprite";
 }
 

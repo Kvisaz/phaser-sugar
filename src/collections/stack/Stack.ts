@@ -32,7 +32,8 @@ export class Stack<T> {
   /** Перекладывает все элементы в другой стек,
    * сохраняя правильный порядок (верх к верху) */
   moveAllTo(target: Stack<T>) {
-    for (let i = this.items.length - 1; i >= 0; i--) {
+    /** Идём с начала, чтобы верхний элемент остался верхним в целевом стеке. **/
+    for (let i = 0; i < this.items.length; i++) {
       target.push(this.items[i]);
     }
     this.clear();
