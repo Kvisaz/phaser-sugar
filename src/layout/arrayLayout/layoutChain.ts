@@ -61,10 +61,13 @@ export const layoutChain = (options: ILayoutConfig): ArrayAlignObject => {
     next.y += typeof config.anchorOffsetY === "function" ? config.anchorOffsetY?.(i) : config.anchorOffsetY ?? 0;
 
     // align to previous
-    const prev = layoutObjects[i - 1] ?? anchor;
-    align.anchor(prev).applyMethod(config.alignToNext, next);
-    next.x += typeof config.nextOffsetX === "function" ? config.nextOffsetX?.(i) : config.nextOffsetX ?? 0;
-    next.y += typeof config.nextOffsetY === "function" ? config.nextOffsetY?.(i) : config.nextOffsetY ?? 0;
+    if (i > 0) {
+      /** Первый элемент уже выровнен по якорю, дополнительное смещение не нужно. **/
+      const prev = layoutObjects[i - 1];
+      align.anchor(prev).applyMethod(config.alignToNext, next);
+      next.x += typeof config.nextOffsetX === "function" ? config.nextOffsetX?.(i) : config.nextOffsetX ?? 0;
+      next.y += typeof config.nextOffsetY === "function" ? config.nextOffsetY?.(i) : config.nextOffsetY ?? 0;
+    }
   }
 
   return arrayAlignObject;
