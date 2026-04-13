@@ -1,3 +1,5 @@
+# 1.1.6
+- camera/addCameraDraggingToObject for world camera scrolling
 
 # 1.1.5
 - layoutChain, layoutRow, layoutColumn 

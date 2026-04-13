@@ -6,11 +6,12 @@ Phaser 3.80 tools and utilities
 - [Docs draft web page](https://kvisaz.github.io/phaser-sugar/)
 - [CHANGE_LOG](changelog.md)
 
-version 1.1.5
+version 1.1.7
 
 # Features
 - [layoutColumn, layoutRow, layoutChain](docs/pages/layoutChain.md)
 - ViewPort component
+- camera/addCameraDraggingToObject for world camera scrolling
 - typeGuards for TypeScript: 
   - isScene, isRectangle, hasGetBounds, hasWidthHeight
   -  isContainer, isImage, isSpite, isText
