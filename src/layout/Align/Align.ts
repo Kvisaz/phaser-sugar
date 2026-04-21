@@ -193,6 +193,10 @@ export class Align {
       iB: item?.getBounds()
     };
   }
+
+  clearAnchor(){
+    this.anchorItem = undefined;
+  }
 }
 
 interface IBoundsPair {

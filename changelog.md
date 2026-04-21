@@ -1,4 +1,7 @@
-# 1.1.6
+# 1.1.8
+Align.clearAnchor, makeAlign
+
+# 1.1.7
 - camera/addCameraDraggingToObject for world camera scrolling
 
 # 1.1.5
