@@ -1,6 +1,6 @@
 {
   "name": "@kvisaz/phaser-sugar",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Phaser 3 utils and syntax sugar",
   "author": "Kvisaz Games",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "webpack --config webpack.prod.js",
-    "publish" : "npm run build && npm publish",
+    "release" : "npm run build && npm publish",
     "storybook": "webpack serve --mode development --config webpack.storybook.js",
     "build-storybook": "webpack --mode production --config webpack.storybook.js",
     "predeploy": "npm run build-storybook",
