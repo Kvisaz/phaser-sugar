@@ -42,3 +42,5 @@ loadFont({
 
 **Components**
 - [TextRectangle](src/components/TextRectangle/TextRectangle.ts) - rectangle with text, adaptive to text size by default 
+
+> ⚠️ Don't create an `npm run publish` script — npm executes it again after publishing (double publish bug). Use `npm run release` instead.
